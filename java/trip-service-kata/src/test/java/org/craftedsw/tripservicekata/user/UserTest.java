@@ -1,5 +1,26 @@
 package org.craftedsw.tripservicekata.user;
 
-public class UserTest {
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class UserTest {
+    @Test
+    public void shouldReturnTrueIfUsersAreFriends() {
+        User user1 = new User();
+        User user2 = new User();
+
+        user1.addFriend(user2);
+
+        assertTrue(user1.isFriendWith(user2));
+    }
+
+    @Test
+    public void shouldReturnFalseIfUsersAreNotFriends() {
+        User user1 = new User();
+        User user2 = new User();
+
+        assertFalse(user1.isFriendWith(user2));
+    }
 }
