@@ -1,6 +1,8 @@
 package org.craftedsw.tripservicekata.user;
 
-public class RealUserSessionProvider implements UserSessionProvider {
+import org.craftedsw.tripservicekata.user.model.User;
+
+public class UserSessionProviderImpl implements UserSessionProvider {
 
     @Override
     public User getLoggedUser() {

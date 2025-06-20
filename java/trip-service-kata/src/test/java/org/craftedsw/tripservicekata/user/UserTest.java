@@ -1,7 +1,7 @@
 package org.craftedsw.tripservicekata.user;
 
+import org.craftedsw.tripservicekata.user.model.User;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
