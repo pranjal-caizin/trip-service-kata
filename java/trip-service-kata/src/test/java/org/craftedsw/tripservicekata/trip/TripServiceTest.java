@@ -11,7 +11,8 @@ import static org.mockito.Mockito.when;
 public class TripServiceTest {
 
     private final UserSessionProvider userSessionProvider = mock(UserSessionProvider.class);
-    private final TripService tripService = new TripService(userSessionProvider);
+    private final TripProvider tripProvider = mock(TripProvider.class);
+    private final TripService tripService = new TripService(userSessionProvider, tripProvider);
 
     @Test
     public void shouldThrowExceptionWhenUserNotLoggedIn() {
