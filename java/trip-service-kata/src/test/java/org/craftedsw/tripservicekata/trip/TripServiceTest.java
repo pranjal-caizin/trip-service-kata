@@ -5,8 +5,7 @@ import org.craftedsw.tripservicekata.user.User;
 import org.craftedsw.tripservicekata.user.UserSessionProvider;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -43,5 +42,17 @@ public class TripServiceTest {
         List<Trip> actualTrips = tripService.getTripsByUser(otherUser);
 
         assertEquals(expectedTrips, actualTrips);
+    }
+
+    @Test
+    public void shouldReturnEmptyListWhenUsersAreNotFriends() {
+        User loggedUser = new User();
+        User otherUser = new User();
+
+        when(userSessionProvider.getLoggedUser()).thenReturn(loggedUser);
+
+        List<Trip> result = tripService.getTripsByUser(otherUser);
+
+        assertTrue(result.isEmpty());
     }
 }
