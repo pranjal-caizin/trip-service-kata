@@ -23,15 +23,10 @@ public class TripService {
 			throw new UserNotLoggedInException();
 		}
 
-		if (isFriend(user, loggedUser)) {
+		if (user.isFriendWith(loggedUser)) {
 			return tripProvider.findTripsByUser(user);
 		}
 
 		return Collections.emptyList();
 	}
-
-	private static boolean isFriend(User user, User loggedUser) {
-		return user.getFriends().contains(loggedUser);
-	}
-
 }
