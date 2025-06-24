@@ -30,11 +30,11 @@ public class TripService {
 		}
 	}
 
-	protected static List<Trip> findTripsByUser(User user) {
+	protected List<Trip> findTripsByUser(User user) {
 		return TripDAO.findTripsByUser(user);
 	}
 
-	protected static User getLoggedUser() {
+	protected User getLoggedUser() {
 		return UserSession.getInstance().getLoggedUser();
 	}
 }
