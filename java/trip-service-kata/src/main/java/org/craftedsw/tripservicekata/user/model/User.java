@@ -9,10 +9,6 @@ public class User {
 	private final List<Trip> trips = new ArrayList<>();
 	private final List<User> friends = new ArrayList<>();
 
-	public boolean isFriendWith(User otherUser) {
-		return friends.contains(otherUser);
-	}
-
 	public List<User> getFriends() {
 		return friends;
 	}
