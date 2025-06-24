@@ -14,7 +14,7 @@ public class TripServiceTest {
     @Test
     void shouldFailWhenUserNotLoggedIn() {
         User user = new User();
-        TestableTripService testableTripService = new TestableTripService();
+        TestableTripService testableTripService = new TestableTripService(null, List.of());
 
         assertThrows(UserNotLoggedInException.class, () -> testableTripService.getTripsByUser(user));
     }
@@ -23,26 +23,47 @@ public class TripServiceTest {
     void shouldReturnTripsWhenUsersAreFriends() {
         User loggedInUser = new User();
         User otherUser = new User();
-        TestableTripService testableTripService = new TestableTripService();
-
         otherUser.addFriend(loggedInUser);
         otherUser.addTrip(new Trip());
 
-        List<Trip> trips = testableTripService.findTripsByUser(otherUser);
+        TestableTripService testableTripService = new TestableTripService(loggedInUser, otherUser.trips());
+
+        List<Trip> trips = testableTripService.getTripsByUser(otherUser);
 
         assertEquals(1, trips.size());
     }
 
+    @Test
+    void shouldNotReturnTripsWhenUsersAreNotFriends() {
+        User loggedInUser = new User();
+        User otherUser = new User();
+        otherUser.addTrip(new Trip());
+
+        TestableTripService testableTripService = new TestableTripService(loggedInUser, otherUser.trips());
+
+        List<Trip> trips = testableTripService.getTripsByUser(otherUser);
+
+        assertEquals(0, trips.size());
+    }
+
     private static class TestableTripService extends TripService {
+
+        private final User dummyLoggedUser;
+        private final List<Trip> dummyTrips;
+
+        public TestableTripService(User dummyLoggedUser, List<Trip> dummyTrips) {
+            this.dummyLoggedUser = dummyLoggedUser;
+            this.dummyTrips = dummyTrips;
+        }
 
         @Override
         protected User getLoggedUser() {
-            return null;
+            return dummyLoggedUser;
         }
 
         @Override
         protected List<Trip> findTripsByUser(User user) {
-            return user.trips();
+            return dummyTrips;
         }
     }
 }
