@@ -10,8 +10,12 @@ import org.craftedsw.tripservicekata.user.UserSessionProvider;
 
 public class TripService {
 
-	private final UserSessionProvider userSessionProvider;
-	private final TripProvider tripProvider;
+	private UserSessionProvider userSessionProvider;
+	private TripProvider tripProvider;
+
+	//TODO: Add default constructor
+
+	public TripService() {}
 
 	public TripService(UserSessionProvider userSessionProvider, TripProvider tripProvider) {
 		this.userSessionProvider = userSessionProvider;
@@ -26,7 +30,7 @@ public class TripService {
 		}
 
 		if (user.isFriendWith(loggedUser)) {
-			return tripProvider.findTripsByUser(user);
+			return tripProvider.getTrips(user);
 		}
 
 		return Collections.emptyList();

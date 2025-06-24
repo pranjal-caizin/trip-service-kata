@@ -5,6 +5,7 @@ import org.craftedsw.tripservicekata.trip.model.Trip;
 import org.craftedsw.tripservicekata.trip.service.TripService;
 import org.craftedsw.tripservicekata.user.model.User;
 import org.craftedsw.tripservicekata.user.UserSessionProvider;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,12 +14,19 @@ import static org.mockito.Mockito.when;
 
 public class TripServiceTest {
 
-    private final UserSessionProvider userSessionProvider = mock(UserSessionProvider.class);
-    private final TripProvider tripProvider = mock(TripProvider.class);
-    private final TripService tripService = new TripService(userSessionProvider, tripProvider);
+    private UserSessionProvider userSessionProvider;
+    private TripProvider tripProvider;
+    private TripService tripService;
+
+    @BeforeEach
+    public void setUp() {
+        userSessionProvider = mock(UserSessionProvider.class);
+        tripProvider = mock(TripProvider.class);
+        tripService = new TripService(userSessionProvider, tripProvider);
+    }
 
     @Test
-    public void shouldThrowExceptionWhenUserNotLoggedIn() {
+    public void shouldFailWhenUserIsNotLoggedIn() {
         when(userSessionProvider.getLoggedUser()).thenReturn(null);
 
         User user = new User();
@@ -29,17 +37,17 @@ public class TripServiceTest {
     }
 
     @Test
-    public void shouldReturnTripsWhenLoggedUserIsAFriend() {
-        User loggedUser = new User();
+    public void shouldReturnTripsListWhenLoggedInUserIsAFriendWithOtherUser() {
+        User loggedInUser = new User();
         User otherUser = new User();
-        otherUser.addFriend(loggedUser);
+        otherUser.addFriend(loggedInUser);
 
         Trip trip1 = new Trip();
         Trip trip2 = new Trip();
         List<Trip> expectedTrips = List.of(trip1, trip2);
 
-        when(userSessionProvider.getLoggedUser()).thenReturn(loggedUser);
-        when(tripProvider.findTripsByUser(otherUser)).thenReturn(expectedTrips);
+        when(userSessionProvider.getLoggedUser()).thenReturn(loggedInUser);
+        when(tripProvider.getTrips(otherUser)).thenReturn(expectedTrips);
 
         List<Trip> actualTrips = tripService.getTripsByUser(otherUser);
 
@@ -47,11 +55,11 @@ public class TripServiceTest {
     }
 
     @Test
-    public void shouldReturnEmptyListWhenUsersAreNotFriends() {
-        User loggedUser = new User();
+    public void shouldNotReturnTripsListWhenUserIsNotFriendWithOtherUser() {
+        User loggedInUser = new User();
         User otherUser = new User();
 
-        when(userSessionProvider.getLoggedUser()).thenReturn(loggedUser);
+        when(userSessionProvider.getLoggedUser()).thenReturn(loggedInUser);
 
         List<Trip> result = tripService.getTripsByUser(otherUser);
 

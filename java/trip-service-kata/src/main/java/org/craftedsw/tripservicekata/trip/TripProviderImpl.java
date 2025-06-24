@@ -7,7 +7,7 @@ import java.util.List;
 public class TripProviderImpl implements TripProvider{
 
     @Override
-    public List<Trip> findTripsByUser(User user) {
+    public List<Trip> getTrips(User user) {
         return TripDAO.findTripsByUser(user);
     }
 }

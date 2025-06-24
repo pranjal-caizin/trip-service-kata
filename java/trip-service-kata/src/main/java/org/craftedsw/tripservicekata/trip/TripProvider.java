@@ -5,5 +5,5 @@ import org.craftedsw.tripservicekata.user.model.User;
 import java.util.List;
 
 public interface TripProvider {
-    List<Trip> findTripsByUser(User user);
+    List<Trip> getTrips(User user);
 }

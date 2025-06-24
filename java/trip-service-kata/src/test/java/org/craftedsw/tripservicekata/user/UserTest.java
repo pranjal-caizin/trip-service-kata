@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
     @Test
-    public void shouldReturnTrueIfUsersAreFriends() {
+    public void shouldReturnTrueIfUsersAreFriends() { //TODO: Think of good and simple names
         User user1 = new User();
         User user2 = new User();
 
