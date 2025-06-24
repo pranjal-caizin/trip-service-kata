@@ -17,15 +17,11 @@ public class TripService {
 			throw new UserNotLoggedInException();
 		}
 
-		if (areFriends(user, loggedUser)) {
+		if (user.isFriendsWith(loggedUser)) {
 			return findTripsByUser(user);
 		}
 
 		return Collections.emptyList();
-	}
-
-	private boolean areFriends(User user, User loggedUser) {
-		return user.getFriends().contains(loggedUser);
 	}
 
 	protected List<Trip> findTripsByUser(User user) {
