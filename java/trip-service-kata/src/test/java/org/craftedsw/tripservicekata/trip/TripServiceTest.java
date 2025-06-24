@@ -1,9 +1,7 @@
 package org.craftedsw.tripservicekata.trip;
 
 import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
-import org.craftedsw.tripservicekata.trip.model.Trip;
-import org.craftedsw.tripservicekata.trip.service.TripService;
-import org.craftedsw.tripservicekata.user.model.User;
+import org.craftedsw.tripservicekata.user.User;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
